@@ -47,7 +47,7 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
                             style: TextStyle(color: Colors.grey, fontSize: 14),
                           ),
                           Text(
-                            'Bilzen, Tanjungbalai',
+                            'Minara House, Kuningan',
                             style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -131,7 +131,7 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
                       CategoryButton(title: 'Americano'),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 40),
                   // Coffee list
                   Expanded(
                     child: GridView.builder(
@@ -161,13 +161,13 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
                             'title': 'Latte',
                             'subtitle': 'Creamy Milk',
                             'price': 5.00,
-                            'imageUrl': 'assets/coffee-shop/coffee_3.jpg', // Gambar lokal
+                            'imageUrl': 'assets/coffee-shop/flat_white.jpg', // Gambar lokal
                           },
                           {
                             'title': 'Americano',
                             'subtitle': 'Black Coffee',
                             'price': 3.00,
-                            'imageUrl': 'assets/coffee-shop/coffee_4.jpg', // Gambar lokal
+                            'imageUrl': 'assets/coffee-shop/caffe_mocha.png', // Gambar lokal
                           },
                         ];
 
