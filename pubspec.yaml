@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: ^0.18.0 # Pastikan versi ini sesuai dengan kompatibilitas proyek Anda
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -61,5 +62,7 @@ flutter:
   assets:
     - assets/coffee-shop/bg.png
     - assets/coffee-shop/promo.png
+    - assets/coffee-shop/promo2.jpeg
+    - assets/coffee-shop/promo3.jpeg
     - assets/coffee-shop/caffe_mocha.png
     - assets/coffee-shop/flat_white.jpg

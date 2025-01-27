@@ -1,4 +1,6 @@
+import 'dart:async'; // Import untuk Timer
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CoffeeAppMainScreen extends StatefulWidget {
   const CoffeeAppMainScreen({super.key});
@@ -9,6 +11,49 @@ class CoffeeAppMainScreen extends StatefulWidget {
 
 class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
   int _selectedIndex = 0;
+  late PageController _pageController;
+  int _currentPage = 0;
+  final List<String> _promoImages = [
+    'assets/coffee-shop/promo.png',
+    'assets/coffee-shop/promo2.jpeg',
+    'assets/coffee-shop/promo3.jpeg',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+    _startImageSlider();
+  }
+
+  // Fungsi untuk mengubah gambar secara otomatis setiap 3 detik
+  void _startImageSlider() {
+    Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_currentPage < _promoImages.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose(); // Pastikan untuk melepaskan controller saat selesai
+    super.dispose();
+  }
+
+  // Fungsi untuk format harga menjadi Rupiah
+  String formatCurrency(double amount) {
+    final NumberFormat currencyFormatter =
+    NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
+    return currencyFormatter.format(amount);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +93,10 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
                           ),
                           Text(
                             'Minara House, Kuningan',
-                            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -82,15 +130,11 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  // Promo banner
+                  // Promo banner with PageView
                   Container(
-                    height: 150,
+                    height: MediaQuery.of(context).size.height * 0.2,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      image: const DecorationImage(
-                        image: AssetImage('assets/coffee-shop/promo.png'),
-                        fit: BoxFit.cover,
-                      ),
                     ),
                     child: Stack(
                       children: [
@@ -98,24 +142,44 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
                           top: 10,
                           left: 10,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
                               color: Colors.red,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Text(
                               'Promo',
-                              style: TextStyle(color: Colors.white, fontSize: 12),
+                              style:
+                              TextStyle(color: Colors.white, fontSize: 12),
                             ),
                           ),
                         ),
-                        const Positioned(
+                        Positioned(
                           bottom: 10,
                           left: 10,
                           child: Text(
                             'Buy one get one FREE',
-                            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
                           ),
+                        ),
+                        // PageView untuk gambar promo yang berganti-ganti
+                        PageView.builder(
+                          controller: _pageController,
+                          itemCount: _promoImages.length,
+                          itemBuilder: (context, index) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                _promoImages[index],
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -135,55 +199,54 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
                   // Coffee list
                   Expanded(
                     child: GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 16,
                         mainAxisSpacing: 16,
                         childAspectRatio: 0.75,
                       ),
-                      itemCount: 4, // Sesuaikan dengan jumlah gambar Anda
+                      itemCount: 4,
                       itemBuilder: (context, index) {
-                        // Daftar gambar spesifik untuk setiap item
                         final List<Map<String, dynamic>> coffeeData = [
                           {
                             'title': 'Caffe Mocha',
                             'subtitle': 'Deep Foam',
-                            'price': 4.53,
-                            'imageUrl': 'assets/coffee-shop/caffe_mocha.png', // Gambar lokal
+                            'price': 25000.0,
+                            'imageUrl': 'assets/coffee-shop/caffe_mocha.png',
                           },
                           {
                             'title': 'Flat White',
                             'subtitle': 'Espresso',
-                            'price': 3.53,
-                            'imageUrl': 'assets/coffee-shop/flat_white.jpg', // Gambar lokal
+                            'price': 22000.0,
+                            'imageUrl': 'assets/coffee-shop/flat_white.jpg',
                           },
                           {
                             'title': 'Latte',
                             'subtitle': 'Creamy Milk',
-                            'price': 5.00,
-                            'imageUrl': 'assets/coffee-shop/flat_white.jpg', // Gambar lokal
+                            'price': 20000.0,
+                            'imageUrl': 'assets/coffee-shop/flat_white.jpg',
                           },
                           {
                             'title': 'Americano',
                             'subtitle': 'Black Coffee',
-                            'price': 3.00,
-                            'imageUrl': 'assets/coffee-shop/caffe_mocha.png', // Gambar lokal
+                            'price': 28000.0,
+                            'imageUrl': 'assets/coffee-shop/caffe_mocha.png',
                           },
                         ];
 
-                        // Menentukan data untuk item saat ini berdasarkan index
                         final coffee = coffeeData[index % coffeeData.length];
 
                         return CoffeeCard(
                           title: coffee['title'] as String,
                           subtitle: coffee['subtitle'] as String,
                           price: coffee['price'] as double,
-                          imageUrl: coffee['imageUrl'] as String, // Menggunakan path lokal
+                          imageUrl: coffee['imageUrl'] as String,
+                          formatCurrency: formatCurrency, // Kirim fungsi
                         );
                       },
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -248,12 +311,14 @@ class CoffeeCard extends StatelessWidget {
   final String subtitle;
   final double price;
   final String imageUrl;
+  final String Function(double) formatCurrency; // Tambahkan fungsi formatCurrency
 
   const CoffeeCard({
     required this.title,
     required this.subtitle,
     required this.price,
     required this.imageUrl,
+    required this.formatCurrency, // Terima fungsi
     super.key,
   });
 
@@ -310,20 +375,15 @@ class CoffeeCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '\$${price.toStringAsFixed(2)}',
+                      formatCurrency(price),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.brown,
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.brown,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Icon(Icons.add, color: Colors.white, size: 16),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.favorite_border),
                     ),
                   ],
                 ),
