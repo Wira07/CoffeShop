@@ -2,6 +2,8 @@ import 'dart:async'; // Import untuk Timer
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'CoffeeProfileScreen.dart';
+
 class CoffeeAppMainScreen extends StatefulWidget {
   const CoffeeAppMainScreen({super.key});
 
@@ -14,7 +16,7 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
   late PageController _pageController;
   int _currentPage = 0;
   final List<String> _promoImages = [
-    'assets/coffee-shop/promo.png',
+    'assets/coffee-shop/promomax.png',
     'assets/coffee-shop/promo2.jpeg',
     'assets/coffee-shop/promo3.jpeg',
   ];
@@ -66,9 +68,11 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
             child: Column(
               children: [
                 Expanded(
+                  flex: 2, // Kurangi bagian hitam
                   child: Container(color: Colors.black),
                 ),
                 Expanded(
+                  flex: 3, // Tambah bagian putih
                   child: Container(color: Colors.white),
                 ),
               ],
@@ -186,14 +190,19 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
                   ),
                   const SizedBox(height: 20),
                   // Categories
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CategoryButton(title: 'All Coffee', isSelected: true),
-                      CategoryButton(title: 'Macchiato'),
-                      CategoryButton(title: 'Latte'),
-                      CategoryButton(title: 'Americano'),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        CategoryButton(title: 'All Coffee', isSelected: true),
+                        const SizedBox(width: 13), // Jarak antar elemen
+                        CategoryButton(title: 'Macchiato'),
+                        const SizedBox(width: 13),
+                        CategoryButton(title: 'Latte'),
+                        const SizedBox(width: 13),
+                        CategoryButton(title: 'Americano'),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 40),
                   // Coffee list
@@ -261,6 +270,15 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
           setState(() {
             _selectedIndex = index;
           });
+
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CoffeeProfileScreen()),
+            );
+          }
+
+
         },
         items: const [
           BottomNavigationBarItem(

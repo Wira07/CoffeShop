@@ -1,3 +1,5 @@
+import 'package:day_1_flutter/pages/CoffeeDetailScreen.dart';
+import 'package:day_1_flutter/pages/CoffeeProfileScreen.dart';
 import 'package:day_1_flutter/pages/app_main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Splashscreen(), // Memperbaiki pemanggilan widget Splashscreen
+      home: Splashscreen(), // Memperbaiki pemanggilan widget Splashscreen
     );
   }
 }
