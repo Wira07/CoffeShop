@@ -204,7 +204,7 @@ class _CoffeeAppMainScreenState extends State<CoffeeAppMainScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
                   // Coffee list
                   Expanded(
                     child: GridView.builder(

@@ -56,7 +56,7 @@ class _CoffeeProfileScreenState extends State<CoffeeProfileScreen> {
             const SizedBox(height: 20),
             CircleAvatar(
               radius: 60,
-              backgroundImage: AssetImage('assets/coffee-shop/profile.jpg'),
+              backgroundImage: AssetImage('assets/coffee-shop/me.jpg'),
             ),
             const SizedBox(height: 12),
             const Text(

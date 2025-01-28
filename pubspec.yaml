@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  google_fonts: ^6.1.0
   intl: ^0.18.0 # Pastikan versi ini sesuai dengan kompatibilitas proyek Anda
 
   # The following adds the Cupertino Icons font to your application.
@@ -67,3 +68,5 @@ flutter:
     - assets/coffee-shop/promomax.png
     - assets/coffee-shop/caffe_mocha.png
     - assets/coffee-shop/flat_white.jpg
+    - assets/coffee-shop/me.jpg
+    - assets/coffee-shop/minara.png

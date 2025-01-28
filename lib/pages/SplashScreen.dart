@@ -1,3 +1,4 @@
+import 'package:day_1_flutter/auth/Login.dart';
 import 'package:flutter/material.dart';
 import 'app_main_screen.dart'; // Pastikan file CoffeeAppMainScreen ada di folder pages
 import '../widgets/common_button.dart'; // Pastikan file ini ada dan berisi widget CommonButton
@@ -83,7 +84,7 @@ class _SplashscreenState extends State<Splashscreen> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const CoffeeAppMainScreen(),
+                              builder: (context) => LoginScreen(),
                             ),
                           );
                         },
